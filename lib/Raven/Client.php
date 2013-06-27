@@ -354,6 +354,9 @@ class Raven_Client
 
         if (!empty($stack)) {
             if (!isset($data['sentry.interfaces.Stacktrace'])) {
+                if (!class_exists('Raven_Stacktrace')) { // php bug https://bugs.php.net/bug.php?id=60149
+                    spl_autoload_call('Raven_Stacktrace');
+                }
                 $data['sentry.interfaces.Stacktrace'] = array(
                     'frames' => Raven_Stacktrace::get_stack_info($stack, $this->trace, $this->shift_vars, $vars),
                 );
@@ -381,6 +384,9 @@ class Raven_Client
 
     public function sanitize(&$data)
     {
+        if (!class_exists('Raven_Serializer')) { // php bug https://bugs.php.net/bug.php?id=60149
+            spl_autoload_call('Raven_Serializer');
+        }
         $data = Raven_Serializer::serialize($data);
     }
 
