@@ -478,6 +478,7 @@ class Raven_Client
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_POST, 1);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $new_headers);
+        curl_setopt($curl, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         curl_setopt($curl, CURLOPT_VERBOSE, false);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
